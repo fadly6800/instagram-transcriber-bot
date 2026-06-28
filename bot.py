@@ -134,8 +134,13 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
         await update.message.reply_text(instagram_error_message(msg))
 
 def main():
+    print(f"TELEGRAM_TOKEN configured: {bool(TELEGRAM_TOKEN)}")
+    print(f"Instagram cookies configured: {bool(setup_instagram_cookies())}")
     if not TELEGRAM_TOKEN:
-        raise SystemExit("Set TELEGRAM_TOKEN environment variable.")
+        raise SystemExit(
+            "TELEGRAM_TOKEN is missing. In Railway: open your SERVICE (not Project Settings) "
+            "→ Variables → add TELEGRAM_TOKEN with your @BotFather token."
+        )
 
     global model
     print("Loading Whisper model...")
